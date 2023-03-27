@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원정보 관리</title>
+    <style>
+        h2{
+            color: red;
+            background-color: orange;
+
+        }
+        hr{
+            border: 3px solid green
+        }
+        table th{ 
+            border: 5px solid greenyellow
+        }
+        td{
+            border: 5px solid greenyellow
+        }
+        
+    </style>
+    <script>
+        let index = 1;
+        let Allmember = new Array();
+        /*
+        function Member (id, name, path){
+            this.id = id;
+            this.name = name;
+            this.path = path;
+        }
+        */
+       class Member{
+            constructor(id, name, path){
+                this.id = id;
+                this.name = name;
+                this.path = path;
+            }
+            toString = function(){
+                let str = "<tr><td>"+this.id+"</td><td>"+this.name+"</td><td><img width = 200 src='"+this.path+"' ></img></td></tr>";
+                return str;
+            };
+       }
+        function registration(){
+            let id = new Date().getFullYear().toString() + index;
+            index++;
+            let name = document.getElementById("na").value;
+            let img = document.getElementById("img").value;
+            let path = "./images/" + img + ".jpg";
+            let str = "<tr><td>"+id+"</td><td>"+name+"</td><td><img width = 200 src='"+path+"' ></img></td></tr>"
+            let tbody = document.getElementById("tbody");
+            tbody.innerHTML += str;
+
+            let t = new Member(id, name, path);
+            Allmember.push(t);
+            
+        }// let registration = finction(){}
+        function alllist(){
+            let wrap = document.getElementById("wrap");
+            wrap.innerHTML = "";
+            Allmember.forEach(element => {
+                //let str = "<tr><td>"+element.id+"</td><td>"+element.name+"</td><td><img width = 200 src='"+element.path+"' ></img></td></tr>";
+               
+                wrap.innerHTML +=  element.toString();
+            });
+        }  
+        window.onload = function(){
+            reg = document.getElementById("reg");
+            reg.addEventListener("click", registration);
+            list = document.getElementById("list");
+            list.addEventListener("click", alllist);
+        }
+        
+    </script>
+</head>
+<body>
+    <h2>회원 가입 하기</h2>
+    <form method="post" action="">   
+        <div>이름: <input type="text" id="na" name="inna"> </div>
+        <div>대표사진 정하기 
+            <select name="" id="img">
+                <option value="Desert"> Desert</option>
+                <option value="Jellyfish"> Jellyfish</option>
+            </select> 
+        </div>
+        <input type="button" id="reg" value="가입" />
+    </form>
+    <hr>
+    <h2 style="color: blue">회원 목록</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>회원번호</th>
+                <th>이름</th>
+                <th>이미지</th>
+            </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+        
+    </table>
+    <hr>
+    <button id="list">회원목록 출력하기</button>
+    <div>
+        <table id="wrap">
+
+        </table>
+
+    </div>
+    <hr>
+    <a href="http://google.co.kr">구글 연결</a>
+    <div>
+        <img src="./images/Desert.jpg" alt="Desert" width="200" height="200">
+    </div>
+</body>
+</html>
